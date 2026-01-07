@@ -20,7 +20,7 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('Mongo error:', err));
 // Routes
-app.use('/api/ask-ai', aiRoutes);
+app.use('/api/ask', aiRoutes);
 app.use('/api/save', saveRoutes);
 
 app.listen(process.env.PORT , () => {
