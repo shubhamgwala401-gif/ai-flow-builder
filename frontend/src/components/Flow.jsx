@@ -52,8 +52,6 @@ export default function Flow() {
     try {
       setLoading(true);
       const res = await axios.post('https://ai-flow-builder.onrender.com/api/ask-ai', { prompt });
-
-      
       setResult(res.data.response);
     } catch (error) {
       console.error(error.response?.data || error.message);
