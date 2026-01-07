@@ -3,6 +3,8 @@ import ReactFlow, { Background, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import axios from 'axios';
 import '../../src/flow.css';
+const API = import.meta.env.VITE_API_URL;
+
 
 export default function Flow() {
   const [prompt, setPrompt] = useState('');
@@ -50,7 +52,9 @@ export default function Flow() {
 
     try {
       setLoading(true);
-      const res = await axios.post('https://ai-flow-builder.onrender.comapi/ask-ai', { prompt });
+      const res = await axios.post(`${API}/api/ask-ai`, { prompt });
+
+      
       setResult(res.data.response);
     } catch (error) {
       console.error(error.response?.data || error.message);
@@ -64,7 +68,7 @@ export default function Flow() {
     if (!prompt || !result) return alert('Nothing to save');
 
     try {
-      await axios.post('https://ai-flow-builder.onrender.comapi/api/save', {
+      await axios.post(`${API}/api/save`, {
         prompt,
         response: result,
       });
