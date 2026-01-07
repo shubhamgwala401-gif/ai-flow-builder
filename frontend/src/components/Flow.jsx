@@ -4,6 +4,8 @@ import 'reactflow/dist/style.css';
 import axios from 'axios';
 import '../../src/flow.css';
 
+const API = import.meta.env.VITE_API_URL; 
+
 
 export default function Flow() {
   const [prompt, setPrompt] = useState('');
@@ -51,9 +53,7 @@ export default function Flow() {
 
     try {
       setLoading(true);
-      const res = await axios.post('https://ai-flow-builder.onrender.com/api/ask',{ prompt }
-      );
-
+      const res = await axios.post(`${API}/api/ask`, { prompt }); 
       setResult(res.data.response);
     } catch (error) {
       console.error(error.response?.data || error.message);
@@ -67,7 +67,7 @@ export default function Flow() {
     if (!prompt || !result) return alert('Nothing to save');
 
     try {
-      await axios.post('https://ai-flow-builder.onrender.com/api/save', {
+      axios.post(`${API}/api/save`,{ 
         prompt,
         response: result,
       });
