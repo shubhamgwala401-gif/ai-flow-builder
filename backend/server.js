@@ -9,7 +9,7 @@ const saveRoutes = require('./routes/save');
 const app = express();
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST'],
+  methods: ['POST', 'POST'],
 }));
 
 app.use(express.json());
