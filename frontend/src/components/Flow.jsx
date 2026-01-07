@@ -50,7 +50,7 @@ export default function Flow() {
 
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost:5000/api/ask-ai', { prompt });
+      const res = await axios.post('http://localhost:3000/api/ask-ai', { prompt });
       setResult(res.data.response);
     } catch (error) {
       console.error(error.response?.data || error.message);
@@ -64,7 +64,7 @@ export default function Flow() {
     if (!prompt || !result) return alert('Nothing to save');
 
     try {
-      await axios.post('http://localhost:5000/api/save', {
+      await axios.post('http://localhost:3000/api/save', {
         prompt,
         response: result,
       });
