@@ -7,7 +7,11 @@ const aiRoutes = require('./routes/ai');
 const saveRoutes = require('./routes/save');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST'],
+}));
+
 app.use(express.json());
 
 // Connect MongoDB
