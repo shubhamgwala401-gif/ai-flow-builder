@@ -3,7 +3,6 @@ import ReactFlow, { Background, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import axios from 'axios';
 import '../../src/flow.css';
-const API = import.meta.env.VITE_API_URL;
 
 
 export default function Flow() {
@@ -52,7 +51,7 @@ export default function Flow() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${API}/api/ask-ai`, { prompt });
+      const res = await axios.post('https://ai-flow-builder.onrender.com/api/ask-ai', { prompt });
 
       
       setResult(res.data.response);
@@ -68,7 +67,7 @@ export default function Flow() {
     if (!prompt || !result) return alert('Nothing to save');
 
     try {
-      await axios.post(`${API}/api/save`, {
+      await axios.post('https://ai-flow-builder.onrender.com/api/save', {
         prompt,
         response: result,
       });
