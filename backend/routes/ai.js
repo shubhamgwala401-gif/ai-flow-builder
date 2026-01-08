@@ -5,30 +5,33 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { prompt } = req.body;
 
-  if (!prompt || prompt.trim() === '') {
+  if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
 
   try {
-    const model = 'google/gemini-2.0-flash-lite-preview-02-05:free';
-
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
       {
-        model,
+        model: 'mistralai/mistral-7b-instruct:free',
         messages: [{ role: 'user', content: prompt }]
       },
       {
         headers: {
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://ai-flow-builder.onrender.com',
+          'X-Title': 'AI Flow Builder'
         }
       }
     );
 
-    const aiText = response.data.choices[0].message.content;
-    res.json({ response: aiText });
+    res.json({
+      response: response.data.choices[0].message.content
+    });
+
   } catch (err) {
+    console.error('OPENROUTER ERROR:', err.response?.data || err.message);
     res.status(500).json({ error: 'AI request failed' });
   }
 });
